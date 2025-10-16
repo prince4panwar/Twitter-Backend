@@ -5,7 +5,7 @@ export const createTweet = async (data) => {
     const content = data.content;
     const tags = content
       .match(/#(\w+)/g)
-      .map((hashtag) => hashtag.substring(1));
+      .map((hashtag) => hashtag.substring(1).toLowerCase());
 
     const tweet = await tweetRepo.createTweet(data);
     const alreadyPresentTags = await hashtagRepo.findByName(tags);
