@@ -29,3 +29,25 @@ export const findAllTweet = async () => {
     throw error;
   }
 };
+
+export const deleteTweet = async (tweetId) => {
+  try {
+    const tweet = await Tweet.findByIdAndDelete(tweetId);
+    return tweet;
+  } catch (error) {
+    console.log("Something went wrong in repository layer");
+    throw error;
+  }
+};
+
+export const updateTweet = async (tweetId, tweetData) => {
+  try {
+    const tweet = await Tweet.findByIdAndUpdate(tweetId, tweetData, {
+      new: true,
+    }); // due to {new: true} it won't return me old document after updating
+    return tweet;
+  } catch (error) {
+    console.log("Something went wrong in repository layer");
+    throw error;
+  }
+};
