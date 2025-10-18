@@ -1,51 +1,51 @@
-import Tweet from "../models/tweet.js";
+import User from "../models/user.js";
 
-export const createTweet = async (data) => {
+export const createUser = async (data) => {
   try {
-    const tweet = await Tweet.create(data);
-    return tweet;
+    const user = await User.create(data);
+    return user;
   } catch (error) {
     console.log("Something went wrong in repository layer");
     throw error;
   }
 };
 
-export const findTweetById = async (tweetId) => {
+export const findUserById = async (userId) => {
   try {
-    const tweet = await Tweet.findById(tweetId).populate({ path: "likes" });
-    return tweet;
+    const user = await User.findById(userId);
+    return user;
   } catch (error) {
     console.log("Something went wrong in repository layer");
     throw error;
   }
 };
 
-export const findAllTweet = async () => {
+export const findAllUser = async () => {
   try {
-    const tweet = await Tweet.find({});
-    return tweet;
+    const user = await User.find({});
+    return user;
   } catch (error) {
     console.log("Something went wrong in repository layer");
     throw error;
   }
 };
 
-export const deleteTweet = async (tweetId) => {
+export const deleteUser = async (userId) => {
   try {
-    const tweet = await Tweet.findByIdAndDelete(tweetId);
-    return tweet;
+    const user = await User.findByIdAndDelete(userId);
+    return user;
   } catch (error) {
     console.log("Something went wrong in repository layer");
     throw error;
   }
 };
 
-export const updateTweet = async (tweetId, tweetData) => {
+export const updateUser = async (userId, userData) => {
   try {
-    const tweet = await Tweet.findByIdAndUpdate(tweetId, tweetData, {
+    const user = await User.findByIdAndUpdate(userId, userData, {
       new: true,
     }); // due to {new: true} it won't return me old document after updating
-    return tweet;
+    return user;
   } catch (error) {
     console.log("Something went wrong in repository layer");
     throw error;

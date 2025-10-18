@@ -49,3 +49,13 @@ export const updateLike = async (likeId, likeData) => {
     throw error;
   }
 };
+
+export const findByUserAndLikeable = async (data) => {
+  try {
+    const like = await Like.findOne(data);
+    return like;
+  } catch (error) {
+    console.log("Something went wrong in repository layer");
+    throw error;
+  }
+};
