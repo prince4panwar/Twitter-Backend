@@ -61,3 +61,20 @@ export const updateTweet = async (tweetId, tweetData) => {
     throw error;
   }
 };
+
+export const getTweetWithComments = async (tweetId) => {
+  try {
+    const tweet = await Tweet.findById(tweetId)
+      .populate({
+        path: "comments",
+        populate: {
+          path: "comments",
+        },
+      })
+      .lean();
+    return tweet;
+  } catch (error) {
+    console.log("Something went wrong in repository layer");
+    throw error;
+  }
+};

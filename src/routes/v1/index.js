@@ -6,6 +6,7 @@ import * as commentController from "../../controller/comment-controller.js";
 const router = express.Router();
 
 router.post("/tweets", tweetController.createTweet);
+router.get("/tweets/:id", tweetController.getTweet);
 router.post("/likes/toggle", likeController.toggleLike);
 router.post("/comments", commentController.createComment);
 

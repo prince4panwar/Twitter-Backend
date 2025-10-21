@@ -20,3 +20,23 @@ export const createTweet = async (req, res) => {
     });
   }
 };
+
+export const getTweet = async (req, res) => {
+  try {
+    const response = await services.getTweet(req.params.id);
+    return res.status(200).json({
+      data: response,
+      success: true,
+      err: {},
+      message: "Tweet is fetched successfully",
+    });
+  } catch (error) {
+    console.log("Something went wrong in the controller layer");
+    return res.status(500).json({
+      data: {},
+      success: false,
+      err: error,
+      message: "Tweet is not created",
+    });
+  }
+};

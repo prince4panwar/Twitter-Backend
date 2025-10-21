@@ -26,3 +26,13 @@ export const createTweet = async (data) => {
     throw error;
   }
 };
+
+export const getTweet = async (tweetId) => {
+  try {
+    const response = tweetRepo.getTweetWithComments(tweetId);
+    return response;
+  } catch (error) {
+    console.log("Something went wrong in service layer");
+    throw error;
+  }
+};
