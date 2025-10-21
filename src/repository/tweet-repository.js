@@ -20,6 +20,16 @@ export const findTweetById = async (tweetId) => {
   }
 };
 
+export const getTweetById = async (tweetId) => {
+  try {
+    const tweet = await Tweet.findById(tweetId);
+    return tweet;
+  } catch (error) {
+    console.log("Something went wrong in repository layer");
+    throw error;
+  }
+};
+
 export const findAllTweet = async () => {
   try {
     const tweet = await Tweet.find({});
