@@ -17,8 +17,8 @@ app.listen(PORT, async () => {
   await connect();
   console.log("Mongo db connected...");
 
-  const tweets = await tweetRepo.findAllTweet();
-  const users = await userRepo.findAllUser();
+  // const tweets = await tweetRepo.findAllTweet();
+  // const users = await userRepo.findAllUser();
 
   // const user = await userRepo.createUser({
   //   email: "prince@admin.com",
@@ -26,5 +26,5 @@ app.listen(PORT, async () => {
   //   name: "Prince",
   // });
 
-  await toggleLike(tweets[0].id, "Tweet", users[0].id);
+  // await toggleLike(tweets[0].id, "Tweet", users[0].id);
 });
