@@ -12,7 +12,7 @@ export const createUser = async (data) => {
 
 export const findUserById = async (userId) => {
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(userId, { email: 1, name: true });
     return user;
   } catch (error) {
     console.log("Something went wrong in repository layer");
@@ -22,7 +22,7 @@ export const findUserById = async (userId) => {
 
 export const findAllUser = async () => {
   try {
-    const user = await User.find({});
+    const user = await User.find({}, { email: 1, name: true });
     return user;
   } catch (error) {
     console.log("Something went wrong in repository layer");
@@ -45,6 +45,18 @@ export const updateUser = async (userId, userData) => {
     const user = await User.findByIdAndUpdate(userId, userData, {
       new: true,
     }); // due to {new: true} it won't return me old document after updating
+    return user;
+  } catch (error) {
+    console.log("Something went wrong in repository layer");
+    throw error;
+  }
+};
+
+export const getUserByEmail = async (email) => {
+  try {
+    const user = await User.findOne({
+      email,
+    });
     return user;
   } catch (error) {
     console.log("Something went wrong in repository layer");
