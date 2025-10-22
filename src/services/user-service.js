@@ -77,3 +77,23 @@ export async function login(email, plainPassword) {
     throw error;
   }
 }
+
+export async function isAuthenticated(token) {
+  try {
+    const response = jwt.verify(token, JWT_KEY);
+
+    if (!response) {
+      throw { error: "Invalid token" };
+    }
+
+    const user = await userRepo.getUserByEmail(response.email);
+    if (!user) {
+      throw { error: "User not found with corresponding token" };
+    }
+
+    return user.id;
+  } catch (error) {
+    console.log("Something went wrong in password comparison");
+    throw error;
+  }
+}
