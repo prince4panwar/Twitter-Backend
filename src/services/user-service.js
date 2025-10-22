@@ -69,7 +69,8 @@ export async function login(email, plainPassword) {
 
     // step 3 --> if password matches then generate a token and send it to the user
     const token = jwt.sign({ email: user.email, id: user.id }, JWT_KEY, {
-      expiresIn: 60,
+      // expiresIn: 60,
+      expiresIn: "1h",
     });
     return token;
   } catch (error) {

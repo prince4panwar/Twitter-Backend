@@ -4,6 +4,7 @@ import * as likeController from "../../controller/like-controller.js";
 import * as commentController from "../../controller/comment-controller.js";
 import * as userController from "../../controller/user-controller.js";
 import {
+  isAuthenticatedUser,
   validateHeader,
   validateUserAuth,
 } from "../../middlewares/auth-request-validator.js";
@@ -11,10 +12,10 @@ import {
 const router = express.Router();
 
 // Tweets routes
-router.post("/tweets", tweetController.createTweet);
+router.post("/tweets", isAuthenticatedUser, tweetController.createTweet);
 router.get("/tweets/:id", tweetController.getTweet);
-router.post("/likes/toggle", likeController.toggleLike);
-router.post("/comments", commentController.createComment);
+router.post("/likes/toggle", isAuthenticatedUser, likeController.toggleLike);
+router.post("/comments", isAuthenticatedUser, commentController.createComment);
 
 // User routes
 router.post("/signup", userController.createUser);
