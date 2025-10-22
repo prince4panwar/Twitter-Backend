@@ -82,3 +82,24 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const response = await userService.login(email, password);
+    return res.status(201).json({
+      data: response,
+      message: "User logged in successfully",
+      success: true,
+      err: {},
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      data: {},
+      message: "Something went wrong",
+      success: false,
+      err: error,
+    });
+  }
+};

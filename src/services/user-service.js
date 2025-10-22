@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import config from "../config/serverConfig.js";
 import * as userRepo from "../repository/user-repository.js";
 
-const { SALT } = config;
+const { SALT, JWT_KEY } = config;
 
 export async function createUser(userData) {
   try {
@@ -53,6 +53,25 @@ export async function deleteUser(userId) {
 
 export async function login(email, plainPassword) {
   try {
+    // step 1 --> fetch the user using the email
+    const user = await userRepo.getUserByEmail(email);
+    if (!user) {
+      console.log("Email doesn't match");
+      throw { error: "User does not exit" };
+    }
+
+    // step 2 --> compare incoming plain password with stores encrypted password
+    const passwordMatch = bcrypt.compareSync(plainPassword, user.password);
+    if (!passwordMatch) {
+      console.log("Password doesn't match");
+      throw { error: "Incorrect password" };
+    }
+
+    // step 3 --> if password matches then generate a token and send it to the user
+    const token = jwt.sign({ email: user.email, id: user.id }, JWT_KEY, {
+      expiresIn: 60,
+    });
+    return token;
   } catch (error) {
     console.log("Something went wrong on service level");
     throw error;
