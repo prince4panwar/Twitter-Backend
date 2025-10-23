@@ -8,11 +8,18 @@ import {
   validateHeader,
   validateUserAuth,
 } from "../../middlewares/auth-request-validator.js";
+import multer from "multer";
 
 const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Tweets routes
-router.post("/tweets", isAuthenticatedUser, tweetController.createTweet);
+router.post(
+  "/tweets",
+  upload.single("image"),
+  isAuthenticatedUser,
+  tweetController.createTweet
+);
 router.get("/tweets/:id", tweetController.getTweet);
 router.post("/likes/toggle", isAuthenticatedUser, likeController.toggleLike);
 router.post("/comments", isAuthenticatedUser, commentController.createComment);
