@@ -21,12 +21,12 @@ describe("User Repository Tests", () => {
     expect(result).toBe(mockUser);
   });
 
-  // test("should throw an error if creation fails", async () => {
-  //   const mockData = { name: "ErrorUser" };
-  //   const mockError = new Error("Database error");
+  test("should throw an error if creation fails", async () => {
+    const mockData = { name: "ErrorUser" };
+    const mockError = new Error("Database error");
 
-  //   User.create.mockRejectedValue(mockError);
+    User.create.mockRejectedValue(mockError);
 
-  //   await expect(createUser(mockData)).rejects.toThrow("Database error");
-  // });
+    await expect(createUser(mockData)).rejects.toThrow("Database error");
+  });
 });
